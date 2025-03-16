@@ -4,12 +4,29 @@ import sys
 
 from PIL import Image
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget, QLabel, QFileDialog
+from PySide6.QtWidgets import (
+    QApplication,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+    QLabel,
+    QFileDialog,
+)
 
 input_path = "Angel/"
 output_path = "output/"
 
-supported_extensions = (".jpeg", ".jpg", ".png", ".tiff", ".tif", ".raw", ".webp", ".bmp")
+supported_extensions = (
+    ".jpeg",
+    ".jpg",
+    ".png",
+    ".tiff",
+    ".tif",
+    ".raw",
+    ".webp",
+    ".bmp",
+)
+
 
 class MyWidget(QWidget):
     def __init__(self):
@@ -17,11 +34,14 @@ class MyWidget(QWidget):
 
         self.layout = QVBoxLayout(self)
 
-        self.input_path_label = QLabel("No directory selected",
-                                     alignment=Qt.AlignCenter)
+        self.input_path_label = QLabel(
+            "No directory selected", alignment=Qt.AlignCenter
+        )
         self.layout.addWidget(self.input_path_label)
 
-        self.output_path_label = QLabel("Select output directory", alignment=Qt.AlignCenter)
+        self.output_path_label = QLabel(
+            "Select output directory", alignment=Qt.AlignCenter
+        )
         self.layout.addWidget(self.output_path_label)
 
         self.input_path_button = QPushButton("Choose input directory")
@@ -33,13 +53,17 @@ class MyWidget(QWidget):
         self.output_path_button.clicked.connect(self.select_output_directory)
 
     def select_input_directory(self):
-        directory = QFileDialog.getExistingDirectory(None, "Select directory", ".", QFileDialog.Option.ShowDirsOnly)
+        directory = QFileDialog.getExistingDirectory(
+            None, "Select directory", ".", QFileDialog.Option.ShowDirsOnly
+        )
 
         if directory:
             self.input_path_label.setText(f"{directory}")
 
     def select_output_directory(self):
-        directory = QFileDialog.getExistingDirectory(None, "Select directory", ".", QFileDialog.Option.ShowDirsOnly)
+        directory = QFileDialog.getExistingDirectory(
+            None, "Select directory", ".", QFileDialog.Option.ShowDirsOnly
+        )
 
         if directory:
             self.output_path_label.setText(f"{directory}")
@@ -51,7 +75,7 @@ class MyWidget(QWidget):
         self.output_path_label.setText(f"{directory}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication([])
     widget = MyWidget()
     widget.resize(800, 600)
@@ -77,5 +101,3 @@ if __name__ == '__main__':
     #                     os.system("ffmpeg -i " + path + "/" + name + " -vf scale=-1:3000 " + output_path + path + "/" + filename + ".jpg")
 
     sys.exit(app.exec())
-
-
